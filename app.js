@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var errorRouter = require('./routes/error');
+var apiRouter = require('./routes/api');
 var logger = require('./log/index.js');
+// var bodyParser  = require('body-parser');
+var formidable = require('express-formidable')
 
 global.logger = logger;
 var app = express();
@@ -15,7 +18,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
+// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(formidable())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -24,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/error', errorRouter);
+app.use('/api', apiRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

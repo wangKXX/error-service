@@ -5,7 +5,7 @@ const fs = require("fs");
 async function toSource({ columnNumber, lineNumber, fileName, errorMessage }) {
   const mapFileUrl = fileName.slice(fileName.indexOf("js")) + ".map";
   const mapContent = fs.readFileSync(
-    path.resolve(__dirname, "../public/" + mapFileUrl),
+    path.resolve(__dirname, "../source-map/" + mapFileUrl),
     "utf-8"
   );
   const consumer = await new sourceMap.SourceMapConsumer(
